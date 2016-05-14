@@ -1,0 +1,28 @@
+{
+  "name": "scrumAttack",
+  "homepage": "http://scrumattack.2016.angularattack.io",
+  "authors": [
+    "Serafin Fernandez <serafinfernandez2208@gmail.com>",
+    "Matias Argañaraz <arganaraz.matias@gmail.com>"
+  ],
+  "description": "Angular application for Scrum management",
+  "main": "index.html",
+  "keywords": [
+    "angular",
+    "scrum",
+    "management"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.5",
+    "bootstrap": "^3.3.6"
+  }
+}
