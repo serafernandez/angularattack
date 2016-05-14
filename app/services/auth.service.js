@@ -18,24 +18,20 @@ angular.module('AuthModule')
          },
          logIn : function() {
              _token = (_token) ? _token : $cookies.get("trelloToken");
-             if(_token) {
-                 Trello.setToken(_token);
-                 $rootScope.isAuthorized = _loggedIn = true;
-                 onAuthorizeSuccessful();
-             } else {
-                 Trello.authorize({
-                     name: "Scrum Attack",
-                     type: "popup",
-                     interactive: true,
-                     expiration: "never",
-                     persist: true,
-                     success: function() {
-                         $rootScope.isAuthorized = _loggedIn = true;
-                         return onAuthorizeSuccessful();
-                     },
-                     scope: { write: true, read: true },
-                 });
-             }
+             var interactive = _token == undefined;
+             console.log('interactive ', interactive);
+             Trello.authorize({
+                 name: "Scrum Attack",
+                 type: "popup",
+                 interactive: interactive,
+                 expiration: "never",
+                 persist: true,
+                 success: function() {
+                     $rootScope.isAuthorized = _loggedIn = true;
+                     return onAuthorizeSuccessful();
+                 },
+                 scope: { write: true, read: true },
+             });
          },
          logOut : function() {
              Trello.deauthorize();

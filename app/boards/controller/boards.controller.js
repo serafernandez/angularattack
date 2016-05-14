@@ -10,7 +10,7 @@ angular.module('BoardsModule')
 
 
         $rootScope.$watch('isAuthorized', function(newValue, oldValue){
-            debugger;
+            console.log(newValue);
             if(newValue === undefined)
                 $rootScope.isAuthorized = ($cookies.get("loggedIn") === "true");
             else if(newValue === false)
