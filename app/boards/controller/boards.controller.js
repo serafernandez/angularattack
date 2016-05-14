@@ -1,7 +1,7 @@
 angular.module('BoardsModule')
     .controller('BoardsController', ['$rootScope', '$scope', 'OrganizationsServices', 'BoardsServices', 'ListasServices', 'CardsServices', function($rootScope, $scope, OrganizationsServices, BoardsServices, ListasServices, CardsServices){
         $rootScope.$watch('isAuthorized', function(newValue, oldValue){
-            if(newValue === true){
+            if(newValue === true) {
                 console.log("Recupero organizaciones");
                 OrganizationsServices.getAllOrg(function(orgs){
                     console.log(orgs);

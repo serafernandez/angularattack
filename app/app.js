@@ -1,1 +1,1 @@
-angular.module('scrumattack', ['as.sortable', 'ngCookies', 'BoardsModule']);
+angular.module('scrumattack', ['as.sortable', 'ngCookies', 'BoardsModule', 'AuthModule']);
