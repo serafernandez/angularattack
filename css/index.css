@@ -1,0 +1,13 @@
+.listas{
+    text-align: center;
+    position:relative;
+}
+    .lista{
+        border-radius: 10px;
+        height: 100%;
+        background-color: #E8E8E8;
+        text-align: center;
+    }
+        .as-sortable-item-handle{
+            word-wrap: break-word;
+        }
