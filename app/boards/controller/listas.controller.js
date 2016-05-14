@@ -1,4 +1,4 @@
-angular.module('ListasModule')
+angular.module('BoardsModule')
     .controller('ListasController', ['$scope', function($scope){
         $scope.listaSprint = [
             {

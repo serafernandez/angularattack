@@ -1,5 +1,5 @@
 angular.module('scrumattack')
-  .controller('MainController', ['$rootScope', '$scope', '$cookies', 'boardService', function($rootScope, $scope, $cookies, boardService) {
+  .controller('MainController', ['$rootScope', '$scope', '$cookies', function($rootScope, $scope, $cookies) {
     $scope.logIn = function() {
         Trello.authorize({
             name: "Scrum Attack",
@@ -27,7 +27,6 @@ angular.module('scrumattack')
     };
 
     function getUser($rootScope) {
-      //boardService.getUser().success(alert("qwe"));
       var success = function(successMsg) {
 
         $rootScope.user = successMsg;
