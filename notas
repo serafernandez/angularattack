@@ -1,0 +1,33 @@
+Obtengo todos los boards de un miembro
+//Trello.get("/members/me/boards", success, error);
+
+Obtengo las listas de un board
+//Trello.get('/boards/573659296399f066eb911fb8/lists', success, error);
+
+Workflow
+Recuperar todas las organizaciones del usuario, y ver si alguna tiene scrumattack en el nombre. Si es asi, recuperarla a travez del
+id, sino crearla. Ver posibilidad de guardarla en cookie.
+var org = {
+name: "Pito",
+displayName: "ScrumAttack",
+website:"algo.algo.com",
+desc:"alto genialidad"
+}
+Trello.post('/organizations', org, success, error);
+Trello.get('/organizations/pito9', success, error);
+
+
+Recupero todos los boards de una organizacion
+GET /organizations/[idOrg or name]/boards
+
+Crear lista
+POST /lists
+{
+name, idBoard
+}
+
+Recupero cards por lista
+GET /lists/[idList]/cards
+
+Post de cards
+https://developers.trello.com/advanced-reference/card#post-1-cards

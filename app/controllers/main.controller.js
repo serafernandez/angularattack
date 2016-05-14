@@ -7,35 +7,36 @@ angular.module('scrumattack')
             interactive: true,
             expiration: "1hour",
             persist: true,
-            success: function () { onAuthorizeSuccessful($rootScope, $cookies); },
-            scope: { write: false, read: true },
+            success: function(){
+                return onAuthorizeSuccessful($cookies);
+            },
+            scope: { write: true, read: true },
         });
-
-        function onAuthorizeSuccessful($rootScope, $cookies) {
-            $rootScope.token = Trello.token();
-            $cookies.put("loggedIn", "true");
-            getUser($rootScope);
-        }
     };
+    function getUser() {
+        Trello.get('/members/me', function(successMsg){
+            $rootScope.user = successMsg;
+        }, function(err){
+            alert('No se pudo iniciar secion');
+        });
+    };
+    function onAuthorizeSuccessful($cookies) {
+        // if(Trello.token() !== undefined){
+        $rootScope.token = Trello.token();
+        $rootScope.isAuthorized = true;
+        $rootScope.$digest();
+        $cookies.put("loggedIn", "true");
+        getUser();
+        // }
+    }
 
     $scope.logged = function() {
         return $cookies.get("loggedIn") !== undefined;
     };
 
     $scope.logOut = function() {
+        Trello.deauthorize();
+        $rootScope.isAuthorized = false;
         $cookies.put("loggedIn", undefined);
     };
-
-    function getUser($rootScope) {
-      var success = function(successMsg) {
-
-        $rootScope.user = successMsg;
-      };
-
-      var error = function(errorMsg) {
-          alert("not logged in");
-      };
-      Trello.get('member/me', success, error);
-    };
-
 }]);
