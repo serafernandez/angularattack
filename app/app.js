@@ -1,1 +1,1 @@
-angular.module("scrumattack", []);
+angular.module('scrumattack', ['as.sortable', 'ListasModule']);
