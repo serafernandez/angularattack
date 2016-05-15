@@ -4,7 +4,9 @@ angular.module('BoardsModule')
             welcome: 'views/welcome.html',
             boards: 'views/boards.html',
             sprint: 'views/sprint.html',
-            sprintPlanning: 'views/sprintPlanning.html'
+            sprintPlanning: 'views/sprintPlanning.html',
+            projectPlanning: 'views/projectPlanning.html',
+            burnDown: 'views/burnDown.html'
         };
 
         $scope.parteApp = views.welcome;
@@ -99,7 +101,7 @@ angular.module('BoardsModule')
         }
 
         $scope.openProject = function(projectId, view){
-            $scope.parteApp = $rootScope.changeView(view);
+            $rootScope.changeView(view);
             $rootScope.currentProject = projectId;
             ListasServices.getLists(projectId, function(success){
                 listLogic(success);
@@ -107,7 +109,6 @@ angular.module('BoardsModule')
                 console.log(err);
             });
         };
-
 
         $rootScope.createTask = function(task){
             console.log("entro");

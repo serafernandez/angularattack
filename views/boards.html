@@ -1,15 +1,21 @@
 <div>
     <div class="nuevo">
         <button class="btn btn-big btn-primary" ng-click="openModalCreateProject()">Create a new project</button>
-        <button class="btn btn-big btn-primary" ng-click="openModalCreateTask()">Create a new task</button>
     </div>
     <div class="projects">
-        <div ng-repeat="project in projects" ng-click="openProject(project.id)" class="panel panel-primary col-md-3 project">
+        <div ng-repeat="project in projects" class="panel panel-primary col-md-3 project">
             <div class="panel-heading">
                 <h3 class="panel-title">{{project.name}}</h3>
             </div>
             <div class="panel-body">
-                {{project.desc}}
+                <div class="row">
+                    <buttton class="btn btn-primary col-md-5" ng-click="openProject(project.id, 'sprint')">Sprint</buttton>
+                    <buttton class="btn btn-primary col-md-5" ng-click="openProject(project.id, 'projectPlanning')">Project Planning</buttton>
+                </div>
+                <div class="row">
+                    <buttton class="btn btn-primary col-md-5" ng-click="openProject(project.id, 'sprintPlanning')">Sprint Planning</buttton>
+                    <buttton class="btn btn-primary col-md-5" ng-click="openProject(project.id, 'burnDown')">Burn Down</buttton>
+                </div>
             </div>
         </div>
     </div>
