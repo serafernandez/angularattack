@@ -1,4 +1,15 @@
 angular.module('BoardsModule')
+    .config(['ChartJsProvider', function (ChartJsProvider) {
+        // Configure all charts
+        ChartJsProvider.setOptions({
+            colours: ['#FF5252', '#FF8A80'],
+            responsive: false
+        });
+        // Configure all line charts
+        ChartJsProvider.setOptions('Line', {
+            datasetFill: false
+        });
+    }])
     .controller('BoardsController', ['$rootScope', '$scope', 'OrganizationsServices', 'BoardsServices', 'ListasServices', 'TasksServices', '$cookies', function($rootScope, $scope, OrganizationsServices, BoardsServices, ListasServices, TasksServices, $cookies){
         var views= {
             welcome: 'views/welcome.html',
@@ -210,6 +221,13 @@ angular.module('BoardsModule')
                 console.log(err);
             });
         };
+
+        $scope.labels = ["1", "2", "3", "4", "5", "6", "7"];
+        $scope.series = ['Estimation', 'TimeLine'];
+        $scope.data = [
+            [7, 6, 5, 4, 3, 2, 1],
+            [7, 7, 5, 4, 4, 2, 1]
+        ];
 
         $scope.dragHandler = {
             allowDuplicates: false,

@@ -1,1 +1,1 @@
-angular.module("BoardsModule", ['ui.bootstrap']);
+angular.module("BoardsModule", ['ui.bootstrap', 'chart.js']);
