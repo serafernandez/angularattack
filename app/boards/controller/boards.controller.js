@@ -105,8 +105,9 @@ angular.module('BoardsModule')
         function listLogic(lists){
             lists.forEach(function(list){
                 listsNames.forEach(function(listName){
-                    if(listName === list.name)
+                    if(listName === list.name){
                         $scope.lists[listName] = list;
+                    }
                 });
             });
             updateCards();
@@ -116,11 +117,27 @@ angular.module('BoardsModule')
             $.each($scope.lists, function(name, list){
                 TasksServices.getListCards(list.id, function(success){
                     $scope.lists[name].tasks = success;
+                    $scope.lists[name].totalTime = totalTime(success);
                     $rootScope.$digest();
                 }, function(err){
                     console.log(err);
                 });
             });
+        }
+
+        function totalTime(tasks) {
+            var totalTime = 0;
+            for(var i=0; i < tasks.length; i++) {
+                var name = tasks[i].name;
+                var index = name.indexOf('{{');
+                var duration = 0;
+                if(index !== -1) {
+                    tasks[i].name = name.substring(0, index);
+                    var duration = parseInt(name.substring(index+2));
+                }
+                totalTime += duration;
+            }
+            return totalTime;
         }
 
         $scope.openProject = function(project, view){
