@@ -45,15 +45,20 @@ angular.module('BoardsModule')
             console.log("entro");
             BoardsServices.createBoard(name, $cookies.get("idNuestraOrg"), function(success){
                 console.log(success);
-                $rootScope.
+                $rootScope.getAllBoards();
             }, function(err){
                 console.log(err);
             });
         };
 
         $rootScope.getAllBoards = function(){
-            
-        }
+            BoardsServices.getAllBoards($cookies.get("idNuestraOrg"), function(success){
+                console.log(success);
+                $scope.boards = success;
+            }, function(err){
+                console.log(err);
+            });
+        };
 
         $scope.dragHandler = {
             allowDuplicates: false,
@@ -82,7 +87,6 @@ angular.module('BoardsModule')
     .controller('ModalInstanceCreateProjectCtrl', ['$rootScope', '$scope', '$uibModalInstance', function($rootScope, $scope, $uibModalInstance){
         $scope.projectName = '';
         $scope.ok = function(){
-            debugger;
             if($scope.projectName)
                 $rootScope.createBoard($scope.projectName);
             $uibModalInstance.close();
