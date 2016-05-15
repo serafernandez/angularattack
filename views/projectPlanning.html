@@ -12,15 +12,15 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="addPBI(pbi)">Add</button>
+            <button class="btn btn-primary" type="button" ng-click="createPBI(pbi.name, pbi.description);pbi={};">Add</button>
             <button class="btn btn-danger" type="button" ng-click="pbi={};">Clear</button>
         </div>
     </div>
     <div class="lista col-md-3 col-md-offset-1">
         <h3>Product Backlog</h3>
-        <ul id="Doing" as-sortable="dragHandler" data-ng-model="lists.Doing.tasks" class="list-group">
-            <li ng-repeat="item in lists.PBI.tasks" as-sortable-item class="list-group-item as-sortable-item">
-                <div as-sortable-item-handle class="as-sortable-item-handle">
+        <ul class="list-group">
+            <li ng-repeat="item in lists.PBI.tasks" class="list-group-item">
+                <div>
                     {{item.name}}
                     {{item.desc}}
                 </div>
