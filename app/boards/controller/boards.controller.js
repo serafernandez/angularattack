@@ -2,9 +2,9 @@ angular.module('BoardsModule')
     .controller('BoardsController', ['$rootScope', '$scope', 'OrganizationsServices', 'BoardsServices', 'ListasServices', 'TasksServices', '$cookies', function($rootScope, $scope, OrganizationsServices, BoardsServices, ListasServices, TasksServices, $cookies){
         var views= {
             welcome: 'views/welcome.html',
-            sprint: 'views/sprint.html',
             boards: 'views/boards.html',
-            planning: 'views/planning.html'
+            sprint: 'views/sprint.html',
+            sprintPlanning: 'views/sprintPlanning.html'
         };
 
         $scope.parteApp = views.welcome;
@@ -60,6 +60,10 @@ angular.module('BoardsModule')
             });
         };
 
+        $rootScope.changeView = function(view){
+            $scope.parteApp = views[view];
+        };
+
         $scope.projects = [];
         $rootScope.getAllBoards = function(){
             BoardsServices.getAllBoards($cookies.get("idNuestraOrg"), function(success){
@@ -94,8 +98,8 @@ angular.module('BoardsModule')
             });
         }
 
-        $scope.openProject = function(projectId){
-            $scope.parteApp = views.sprint;
+        $scope.openProject = function(projectId, view){
+            $scope.parteApp = $rootScope.changeView(view);
             $rootScope.currentProject = projectId;
             ListasServices.getLists(projectId, function(success){
                 listLogic(success);
@@ -103,6 +107,7 @@ angular.module('BoardsModule')
                 console.log(err);
             });
         };
+
 
         $rootScope.createTask = function(task){
             console.log("entro");
@@ -141,7 +146,6 @@ angular.module('BoardsModule')
                 // Recupero la nueva pos
                 // event.dest.index
                 var listId = $scope.lists[event.dest.sortableScope.element[0].id].id;
-                debugger;
                 $rootScope.moveTask(event.source.itemScope.item.id, listId, event.dest.index);
             },
             containment: '#listas',
