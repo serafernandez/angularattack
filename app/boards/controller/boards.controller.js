@@ -145,6 +145,7 @@ angular.module('BoardsModule')
                     tasks[i].name = name.substring(0, index);
                     var duration = parseInt(name.substring(index+2));
                 }
+                tasks[i].duration = duration;
                 totalTime += duration;
             }
             return totalTime;
@@ -220,8 +221,12 @@ angular.module('BoardsModule')
                 // event.dest.sortableScope.element[0].id
                 // Recupero la nueva pos
                 // event.dest.index
-                var listId = $scope.lists[event.dest.sortableScope.element[0].id].id;
-                $rootScope.moveTask(event.source.itemScope.item.id, listId, event.dest.index);
+                var destList = $scope.lists[event.dest.sortableScope.element[0].id];
+                var sourceList = $scope.lists[event.source.sortableScope.element[0].id];
+                var item = event.source.itemScope.item;
+                $rootScope.moveTask(event.source.itemScope.item.id, destList.id, event.dest.index);
+                destList.totalTime += item.duration;
+                sourceList.totalTime -= item.duration;
             },
             containment: '#listas',
             containerPositioning: 'relative'
