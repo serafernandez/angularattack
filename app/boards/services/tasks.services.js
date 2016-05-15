@@ -4,16 +4,14 @@ angular.module("BoardsModule")
             getListCards: function(idList, success, error){
                 Trello.get("/lists/"+idList+"/cards", {filter: 'open'}, success, error);
             },
-            createTask: function(task, listId) {
+            createTask: function(name, description, duration, listId, success, error) {
                 var newCard = {
-                      name: task.name + " {{" + task.duration + "}}",
-                      desc: task.description,
+                      name: name + " {{" + task.duration + "}}",
+                      desc: description,
                       pos: "bottom",
-                      due: null,
                       idList: listId
                 };
-                console.log('new Card ', newCard);
-                // TODO: qweqweampsodmpaosmfpoam
+                Trello.post('/cards', newCard, success, error);
             },
             moveTask: function(taskId, targetListId, position, success, err) {
                 var params = {
@@ -28,7 +26,5 @@ angular.module("BoardsModule")
                 };
                 Trello.put("/cards/" + taskId, position, success, err);
             }
-
-
         };
     }]);
