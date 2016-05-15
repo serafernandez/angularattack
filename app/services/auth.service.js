@@ -32,7 +32,7 @@ angular.module('AuthModule')
                      persist: true,
                      success: function() {
                          $rootScope.isAuthorized = _loggedIn = true;
-                         return onAuthorizeSuccessful();
+                         return onAuthorizeSuccessful(interactive);
                      },
                      scope: { write: true, read: true },
                  };
@@ -49,13 +49,15 @@ angular.module('AuthModule')
          }
      }
 
-     function onAuthorizeSuccessful() {
+     function onAuthorizeSuccessful(interactive) {
          // if(Trello.token() !== undefined){
          $rootScope.token = Trello.token();
          $cookies.put("loggedIn", "true");
          $cookies.put("trelloToken", Trello.token());
          $rootScope.$digest();
          getUser();
+
+         interactive && $window.location.reload();
          // }
      }
 
