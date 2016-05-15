@@ -21,6 +21,14 @@ angular.module("BoardsModule")
                     pos: position
                 };
                 Trello.put("/cards/" + taskId, params, success, err);
+            },
+            changePos: function(taskId, position, success, err) {
+                var params = {
+                    pos: position
+                };
+                Trello.put("/cards/" + taskId, position, success, err);
             }
+
+
         };
     }]);
