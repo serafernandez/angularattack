@@ -1,22 +1,20 @@
 angular.module('BoardsModule')
     .controller('BoardsController', ['$rootScope', '$scope', 'OrganizationsServices', 'BoardsServices', 'ListasServices', 'CardsServices', '$cookies', function($rootScope, $scope, OrganizationsServices, BoardsServices, ListasServices, CardsServices, $cookies){
-
         var views= {
             welcome: 'views/welcome.html',
-            sprint: 'views/sprint.html'
+            sprint: 'views/sprint.html',
+            boards: 'views/boards.html'
         };
 
         $scope.parteApp = views.welcome;
 
-
         $rootScope.$watch('isAuthorized', function(newValue, oldValue){
-            console.log(newValue);
             if(newValue === undefined)
                 $rootScope.isAuthorized = ($cookies.get("loggedIn") === "true");
             else if(newValue === false)
                 $scope.parteApp = views.welcome;
             else if(newValue === true){
-                $scope.parteApp = views.sprint;
+                $scope.parteApp = views.boards;
                 console.log("Recupero organizaciones");
                 OrganizationsServices.getAllOrg(function(orgs){
                     orgs.forEach(function(org){
@@ -43,12 +41,18 @@ angular.module('BoardsModule')
             }
         });
 
-        $scope.createBoard = function(name){
+        $rootScope.createBoard = function(name){
+            console.log("entro");
             BoardsServices.createBoard(name, $cookies.get("idNuestraOrg"), function(success){
                 console.log(success);
+                $rootScope.
             }, function(err){
                 console.log(err);
             });
+        };
+
+        $rootScope.getAllBoards = function(){
+            
         }
 
         $scope.dragHandler = {
@@ -59,5 +63,31 @@ angular.module('BoardsModule')
             },
             containment: '#listas',
             containerPositioning: 'relative'
+        };
+    }])
+    .controller("ModalController", ['$rootScope', '$scope', '$uibModal', function($rootScope, $scope, $uibModal){
+        $rootScope.openModalCreateProject = function(){
+            var modalInstance = $uibModal.open({
+                templateUrl: 'modalNewBoard.html',
+                controller: 'ModalInstanceCreateProjectCtrl'
+            });
+
+            modalInstance.result.then(function() {
+                console.log("salio");
+            }, function() {
+                console.log('Modal dismissed at: ' + new Date());
+            });
+        };
+    }])
+    .controller('ModalInstanceCreateProjectCtrl', ['$rootScope', '$scope', '$uibModalInstance', function($rootScope, $scope, $uibModalInstance){
+        $scope.projectName = '';
+        $scope.ok = function(){
+            debugger;
+            if($scope.projectName)
+                $rootScope.createBoard($scope.projectName);
+            $uibModalInstance.close();
+        };
+        $scope.cancel = function(){
+            $uibModalInstance.dismiss('cancel');
         };
     }]);
