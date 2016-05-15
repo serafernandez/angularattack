@@ -46,7 +46,7 @@ angular.module('BoardsModule')
         });
 
         var listsNames = [
-            "Done", "Doing", "Sprint", "Configs", "PBI", "PBIx", "GeneralTasks"
+            "Done", "Doing", "Sprint", "Configs", "PBI", "PBIx", "GeneralTasks", "FinishedTasks"
         ];
 
         $rootScope.createBoard = function(name){
@@ -80,6 +80,7 @@ angular.module('BoardsModule')
                 $scope.moveTask(task.id, $scope.lists.Sprint.id, 0);
             });
             $scope.lists.GeneralTasks.tasks = [];
+            $scope.parteApp = views.boards;
         };
 
         $scope.GTToCreate = {};
@@ -153,7 +154,6 @@ angular.module('BoardsModule')
         };
 
         $rootScope.createPBI = function(name, description){
-
             console.log("list ", $scope.lists.PBI.id);
             TasksServices.createTask(name, description, $scope.lists.PBI.id, function(success){
                 $scope.lists.PBI.tasks.push({name: name, desc: description});
@@ -171,6 +171,19 @@ angular.module('BoardsModule')
                 console.log(err);
             });
         };
+
+        $scope.endSprint = function(project){
+            $scope.currentProject = project;
+            $rootScope.openModalEndSprint();
+        };
+        $rootScope.pasarTodasCardsAHecho = function(){
+            $scope.openProject($scope.currentProject, 'boards')
+            $scope.lists.Done.tasks.forEach(function(task){
+                $scope.moveTask(task.id, $scope.lists.FinishedTasks.id, 0);
+            });
+            $scope.lists.Done.tasks = [];
+        };
+
 
         $rootScope.changeTaskPos = function(taskId, position){
             TasksServices.changePos(taskId, position, function(success){
@@ -223,6 +236,19 @@ angular.module('BoardsModule')
                 console.log('Modal dismissed at: ' + new Date());
             });
         };
+
+        $rootScope.openModalEndSprint = function(){
+            var modalInstance = $uibModal.open({
+                templateUrl: 'modalEndSprint.html',
+                controller: 'ModalInstanceEndSprintCtrl'
+            });
+
+            modalInstance.result.then(function() {
+                console.log("salio");
+            }, function() {
+                console.log('Modal dismissed at: ' + new Date());
+            });
+        };
     }])
     .controller('ModalInstanceCreateProjectCtrl', ['$rootScope', '$scope', '$uibModalInstance', function($rootScope, $scope, $uibModalInstance){
         $scope.projectName = '';
@@ -240,6 +266,15 @@ angular.module('BoardsModule')
         $scope.ok = function() {
             if($scope.task)
                 $rootScope.createTask($scope.task);
+            $uibModalInstance.close();
+        };
+        $scope.cancel = function(){
+            $uibModalInstance.dismiss('cancel');
+        };
+    }])
+    .controller("ModalInstanceEndSprintCtrl", ["$rootScope", '$scope', '$uibModalInstance', function($rootScope, $scope, $uibModalInstance){
+        $scope.ok = function(){
+            $rootScope.pasarTodasCardsAHecho();
             $uibModalInstance.close();
         };
         $scope.cancel = function(){
