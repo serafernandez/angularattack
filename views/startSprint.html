@@ -1,0 +1,28 @@
+<div class="wrapper">
+    <h3>Sprint Planning: {{currentProject.name}}</h3>
+    <div id="generalTasks" class="col-md-4 lista">
+        <h3>Tasks to new sprint</h3>
+        <ul id="Sprint" class="list-group">
+            <li ng-repeat="item in lists.GeneralTasks.tasks" class="list-group-item">
+                <div>
+                    {{item.name}}
+                    <span class="badge">{{item.duration}}</span>
+                    {{item.description}}
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div id="formSP" class="col-md-4 lista">
+        <h3>Create new task</h3>
+        <div class="form-group">
+            <label for="">Sprint duration:</label>
+            <input type="number" ng-model='SprintToCreate.duration' class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Usuario (not implemented yet)</label>
+            <input type="number" ng-model='SprintToCreate.members' class="form-control" readonly>
+        </div>
+        <button class="btn btn-primary" ng-click="initNewSprint()">Create Task</button>
+        <button class="btn btn-danger" ng-click="SprintToCreate={};">Clean form</button>
+    </div>
+</div>

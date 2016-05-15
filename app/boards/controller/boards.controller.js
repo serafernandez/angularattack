@@ -6,7 +6,8 @@ angular.module('BoardsModule')
             sprint: 'views/sprint.html',
             sprintPlanning: 'views/sprintPlanning.html',
             projectPlanning: 'views/projectPlanning.html',
-            burnDown: 'views/burnDown.html'
+            burnDown: 'views/burnDown.html',
+            startSprint: 'views/startSprint.html'
         };
 
         $scope.parteApp = views.welcome;
@@ -71,6 +72,14 @@ angular.module('BoardsModule')
                 $scope.PBISelected = {};
             else
                 $scope.PBISelected = item;
+        };
+
+        $scope.SprintToCreate = {};
+        $scope.initNewSprint = function(){
+            $scope.lists.GeneralTasks.tasks.forEach(function(task){
+                $scope.moveTask(task.id, $scope.lists.Sprint.id, 0);
+            });
+            $scope.lists.GeneralTasks.tasks = [];
         };
 
         $scope.GTToCreate = {};
