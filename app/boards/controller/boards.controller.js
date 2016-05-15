@@ -143,6 +143,18 @@ angular.module('BoardsModule')
             });
         };
 
+        $rootScope.createPBI = function(name, description){
+
+            console.log("list ", $scope.lists.PBI.id);
+            TasksServices.createTask(name, description, $scope.lists.PBI.id, function(success){
+                $scope.lists.PBI.tasks.push({name: name, desc: description});
+                $rootScope.$digest();
+                console.log(success);
+            }, function(err){
+                console.log(err);
+            });
+        };
+
         $rootScope.moveTask = function(taskId, targetListId, position){
             TasksServices.moveTask(taskId, targetListId, position, function(success){
                 console.log(success);
