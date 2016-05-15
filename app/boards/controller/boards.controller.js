@@ -66,6 +66,29 @@ angular.module('BoardsModule')
             $scope.parteApp = views[view];
         };
 
+        $scope.selectPBI = function(item){
+            if(item === $scope.PBISelected)
+                $scope.PBISelected = {};
+            else
+                $scope.PBISelected = item;
+        };
+
+        $scope.GTToCreate = {};
+        $scope.GTRecentlyCreated = [];
+        $scope.createGT = function(pbiName){
+            var task = {
+                duration: $scope.GTToCreate.duration,
+                description: ''
+            };
+            if(pbiName !== undefined)
+                task.name= $scope.GTToCreate.name + " - " + pbiName;
+            else
+                task.name= $scope.GTToCreate.name;
+            $scope.createTask(task.name, task.description, task.duration, 'GeneralTasks');
+            $scope.GTRecentlyCreated.push(task);
+            $scope.GTToCreate = {};
+        };
+
         $scope.projects = [];
         $rootScope.getAllBoards = function(){
             BoardsServices.getAllBoards($cookies.get("idNuestraOrg"), function(success){
@@ -100,10 +123,11 @@ angular.module('BoardsModule')
             });
         }
 
-        $scope.openProject = function(projectId, view){
+        $scope.openProject = function(project, view){
             $rootScope.changeView(view);
-            $rootScope.currentProject = projectId;
-            ListasServices.getLists(projectId, function(success){
+            $scope.GTRecentlyCreated = [];
+            $rootScope.currentProject = project;
+            ListasServices.getLists(project.id, function(success){
                 listLogic(success);
             }, function(err){
                 console.log(err);
@@ -112,7 +136,7 @@ angular.module('BoardsModule')
 
         $rootScope.createTask = function(name, description, duration, list){
             console.log('list', $scope.lists[list]);
-            TasksServices.createTask(name + " {{" + duration + "}}", $scope.lists[list].id, function(success){
+            TasksServices.createTask(name + " {{" + duration + "}}", description, $scope.lists[list].id, function(success){
                 console.log(success);
             }, function(err){
                 console.log(err);

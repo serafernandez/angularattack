@@ -1,13 +1,40 @@
 <div class="wrapper">
-    <div id="pb" class="col-md-4">
+    <h3>Sprint Planning: {{currentProject.name}}</h3>
+    <div id="pb" class="col-md-4 lista">
         <ul class="list-group">
-            <li ng-repeat="item in listas.PBI.tasks" class="list-group-item"></li>
+            <h3>Product Backlog</h3>
+            <li ng-repeat="item in lists.PBI.tasks" ng-class="{PBISelected : (item.name === PBISelected.name)}" class="list-group-item" ng-click="selectPBI(item)">
+                {{item.name}}
+            </li>
         </ul>
     </div>
-    <div id="formSP" class="col-md-4">
-
+    <div id="formSP" class="col-md-4 lista">
+        <h3>Create new task</h3>
+        <div class="form-group">
+            <label for="">Product Backlog Item</label>
+            <input ng-model="PBISelected.name" type="text" class="form-control" readonly>
+        </div>
+        <div class="form-group">
+            <label for="">Name</label>
+            <input type="text" ng-model="GTToCreate.name" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Duration</label>
+            <input type="number" ng-model='GTToCreate.duration' class="form-control">
+        </div>
+        <button class="btn btn-primary" ng-click="createGT(PBISelected.name)">Create Task</button>
+        <button class="btn btn-danger" ng-click="GTToCreate={};">Clean form</button>
     </div>
-    <div id="generalTasks" class="col-md-4">
-
+    <div id="generalTasks" class="col-md-4 lista">
+        <h3>General Tasks Recently Created</h3>
+        <ul id="Sprint" class="list-group">
+            <li ng-repeat="item in GTRecentlyCreated" class="list-group-item">
+                <div>
+                    {{item.name}}
+                    <span class="badge">{{item.duration}}</span>
+                    {{item.description}}
+                </div>
+            </li>
+        </ul>
     </div>
 </div>

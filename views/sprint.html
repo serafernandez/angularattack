@@ -4,7 +4,7 @@
         <li ng-repeat="item in lists.Sprint.tasks" as-sortable-item class="list-group-item as-sortable-item">
             <div as-sortable-item-handle class="as-sortable-item-handle">
                 {{item.name}}
-                <span class="badge">{{item.scrumTime}}</span>
+                <span class="badge">{{item.duration}}</span>
                 {{item.desc}}
             </div>
         </li>
@@ -16,7 +16,7 @@
         <li ng-repeat="item in lists.Doing.tasks" as-sortable-item class="list-group-item as-sortable-item">
             <div as-sortable-item-handle class="as-sortable-item-handle">
                 {{item.name}}
-                <span class="badge">{{item.scrumTime}}</span>
+                <span class="badge">{{item.duration}}</span>
                 {{item.desc}}
             </div>
         </li>
@@ -28,7 +28,7 @@
         <li ng-repeat="item in lists.Done.tasks" as-sortable-item class="list-group-item as-sortable-item">
             <div as-sortable-item-handle class="as-sortable-item-handle">
                 {{item.name}}
-                <span class="badge">{{item.scrumTime}}</span>
+                <span class="badge">{{item.duration}}</span>
                 {{item.desc}}
             </div>
         </li>
