@@ -1,5 +1,6 @@
 <div class="lista col-md-3">
     <h3>Sprint</h3>
+    <h4>{{lists.Sprint.totalTime}}</h4>
     <ul id="Sprint" as-sortable="dragHandler" data-ng-model="lists.Sprint.tasks" class="list-group">
         <li ng-repeat="item in lists.Sprint.tasks" as-sortable-item class="list-group-item as-sortable-item">
             <div as-sortable-item-handle class="as-sortable-item-handle">
@@ -12,6 +13,7 @@
 </div>
 <div class="lista col-md-3 col-md-offset-1">
     <h3>Doing</h3>
+    <h4>{{lists.Doing.totalTime}}</h4>
     <ul id="Doing" as-sortable="dragHandler" data-ng-model="lists.Doing.tasks" class="list-group">
         <li ng-repeat="item in lists.Doing.tasks" as-sortable-item class="list-group-item as-sortable-item">
             <div as-sortable-item-handle class="as-sortable-item-handle">
@@ -24,6 +26,7 @@
 </div>
 <div class="lista col-md-3 col-md-offset-1">
     <h3>Done</h3>
+    <h4>{{lists.Done.totalTime}}</h4>
     <ul id="Done" as-sortable="dragHandler" data-ng-model="lists.Done.tasks" class="list-group">
         <li ng-repeat="item in lists.Done.tasks" as-sortable-item class="list-group-item as-sortable-item">
             <div as-sortable-item-handle class="as-sortable-item-handle">
