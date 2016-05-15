@@ -99,7 +99,7 @@ angular.module('BoardsModule')
         }
 
         $scope.openProject = function(projectId, view){
-            $scope.parteApp = $rootScope.changeView(view);
+            $rootScope.changeView(view);
             $rootScope.currentProject = projectId;
             ListasServices.getLists(projectId, function(success){
                 listLogic(success);

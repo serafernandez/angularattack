@@ -4,7 +4,7 @@
         <button class="btn btn-big btn-primary" ng-click="openModalCreateTask()">Create a new task</button>
     </div>
     <div class="projects">
-        <div ng-repeat="project in projects" ng-click="openProject(project.id)" class="panel panel-primary col-md-3 project">
+        <div ng-repeat="project in projects" ng-click="openProject(project.id, 'sprint')" class="panel panel-primary col-md-3 project">
             <div class="panel-heading">
                 <h3 class="panel-title">{{project.name}}</h3>
             </div>
