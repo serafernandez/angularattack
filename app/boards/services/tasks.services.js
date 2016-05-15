@@ -2,7 +2,7 @@ angular.module("BoardsModule")
     .factory("TasksServices", [function(){
         return {
             getListCards: function(idList, success, error){
-                Trello.get("/lists/"+idList+"/cards", {filter: 'open'}, success, err);
+                Trello.get("/lists/"+idList+"/cards", {filter: 'open'}, success, error);
             },
             createTask: function(task, listId) {
                 var newCard = {

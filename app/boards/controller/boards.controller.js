@@ -85,8 +85,7 @@ angular.module('BoardsModule')
 
         function updateCards(){
             $.each($scope.lists, function(name, list){
-                CardsServices.getListCards(list.id, function(success){
-                    console.log(list.name, success);
+                TasksServices.getListCards(list.id, function(success){
                     $scope.lists[name].tasks = success;
                     $rootScope.$digest();
                 }, function(err){
@@ -97,7 +96,6 @@ angular.module('BoardsModule')
 
         $scope.openProject = function(projectId){
             $scope.parteApp = views.sprint;
-            console.log(projectId);
             $rootScope.currentProject = projectId;
             ListasServices.getLists(projectId, function(success){
                 listLogic(success);
@@ -117,26 +115,34 @@ angular.module('BoardsModule')
         };
 
         $rootScope.moveTask = function(taskId, targetListId, position){
-            TaskServices.moveTask(taskId, targetListId, position, function(success){
+            TasksServices.moveTask(taskId, targetListId, position, function(success){
                 console.log(success);
             }, function(err){
                 console.log(err);
             });
-        }
+        };
 
         $rootScope.changeTaskPos = function(taskId, position){
-            TaskServices.changePos(taskId, position, function(success){
+            TasksServices.changePos(taskId, position, function(success){
                 console.log(success);
             }, function(err){
                 console.log(err);
             });
-        }
+        };
 
         $scope.dragHandler = {
             allowDuplicates: false,
             itemMoved: function(event){
-                // recupero el elemento que se movio event.source.itemScope.item
-                console.log(event);
+                // Recupero el elemento que se movio
+                // event.source.itemScope.item
+                // Recupero el id de la lista nueva
+                // event.source.sortableScope.element[0].id
+                // event.dest.sortableScope.element[0].id
+                // Recupero la nueva pos
+                // event.dest.index
+                var listId = $scope.lists[event.dest.sortableScope.element[0].id].id;
+                debugger;
+                $rootScope.moveTask(event.source.itemScope.item.id, listId, event.dest.index);
             },
             containment: '#listas',
             containerPositioning: 'relative'

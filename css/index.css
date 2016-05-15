@@ -8,6 +8,9 @@
         background-color: #E8E8E8;
         text-align: center;
     }
+        .lista ul{
+            min-height: 20px;
+        }
         .as-sortable-item-handle{
             word-wrap: break-word;
         }
