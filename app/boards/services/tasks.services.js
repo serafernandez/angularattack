@@ -2,7 +2,7 @@ angular.module("BoardsModule")
     .factory("TasksServices", [function(){
         return {
             getListCards: function(idList, success, error){
-                Trello.get("/lists/"+idList+"/cards", {filter: 'open'}, success, error);
+                Trello.get("/lists/"+idList+"/cards", {filter: 'open'}, success, err);
             },
             createTask: function(task, listId) {
                 var newCard = {
@@ -14,6 +14,13 @@ angular.module("BoardsModule")
                 };
                 console.log('new Card ', newCard);
                 // TODO: qweqweampsodmpaosmfpoam
+            },
+            moveTask: function(taskId, targetListId, position, success, err) {
+                var params = {
+                    idList: targetListId,
+                    pos: position
+                };
+                Trello.put("/cards/" + taskId, params, success, err);
             }
         };
     }]);

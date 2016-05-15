@@ -116,6 +116,14 @@ angular.module('BoardsModule')
             });
         };
 
+        $rootScope.moveTask = function(taskId, targetListId, position){
+            TaskServices.moveTask(taskId, targetListId, position, function(success){
+                console.log(success);
+            }, function(err){
+                console.log(err);
+            });
+        }
+
         $scope.dragHandler = {
             allowDuplicates: false,
             itemMoved: function(event){
