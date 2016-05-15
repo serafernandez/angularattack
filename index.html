@@ -33,6 +33,27 @@
                 <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
             </div>
         </script>
+        <script type="text/ng-template" id="modalNewCard.html">
+            <div class="modal-header">
+                <h3 class="modal-title">Create a new task</h3>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <div class="form-group">
+                        <label for="taskName">Task Name</label>
+                        <input id="taskName" class="form-control" ng-model="task.name" type="text" placeholder="Name" ng-required='required'>
+                        <label for="taskName">Description</label>
+                        <input id="taskName" class="form-control" ng-model="task.description" type="text" placeholder="Description" ng-required='required'>
+                        <label for="taskDuration">Duration</label>
+                        <input id="taskDuration" class="form-control" ng-model="task.duration" type="number" min="0" max-value="5" placeholder="Duration" ng-required='required'>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="ok()">Create</button>
+                <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
     </div>
 
     <script src="libs/jquery/dist/jquery.min.js" charset="utf-8"></script>
@@ -55,7 +76,7 @@
     <script src="app/boards/services/organizations.services.js" charset="utf-8"></script>
     <script src="app/boards/services/boards.services.js" charset="utf-8"></script>
     <script src="app/boards/services/listas.services.js" charset="utf-8"></script>
-    <script src="app/boards/services/cards.services.js" charset="utf-8"></script>
+    <script src="app/boards/services/tasks.services.js" charset="utf-8"></script>
 </body>
 
 </html>
