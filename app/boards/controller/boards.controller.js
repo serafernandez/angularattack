@@ -45,7 +45,7 @@ angular.module('BoardsModule')
         });
 
         var listsNames = [
-            "Done", "Doing", "Sprint", "Configs", "PBI", "PBIx", "General Tasks"
+            "Done", "Doing", "Sprint", "Configs", "PBI", "PBIx", "GeneralTasks"
         ];
 
         $rootScope.createBoard = function(name){
@@ -110,11 +110,10 @@ angular.module('BoardsModule')
             });
         };
 
-        $rootScope.createTask = function(task){
-            console.log("entro");
-            TasksServices.createTask(task, $cookies.get("idNuestraOrg"), function(success){
+        $rootScope.createTask = function(name, description, duration, list){
+            console.log('list', $scope.lists[list]);
+            TasksServices.createTask(name + " {{" + duration + "}}", $scope.lists[list].id, function(success){
                 console.log(success);
-                $rootScope.getAllBoards();
             }, function(err){
                 console.log(err);
             });

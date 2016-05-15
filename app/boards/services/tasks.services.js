@@ -4,9 +4,9 @@ angular.module("BoardsModule")
             getListCards: function(idList, success, error){
                 Trello.get("/lists/"+idList+"/cards", {filter: 'open'}, success, error);
             },
-            createTask: function(name, description, duration, listId, success, error) {
+            createTask: function(name, description, listId, success, error) {
                 var newCard = {
-                      name: name + " {{" + task.duration + "}}",
+                      name: name,
                       desc: description,
                       pos: "bottom",
                       idList: listId
