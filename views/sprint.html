@@ -1,32 +1,35 @@
 <div class="lista col-md-3">
     <h3>Sprint</h3>
-    <ul id="listaSprint" as-sortable="dragHandler" data-ng-model="listaSprint" class="list-group">
-        <li ng-repeat="item in listaSprint" as-sortable-item class="list-group-item as-sortable-item">
+    <ul id="listaSprint" as-sortable="dragHandler" data-ng-model="lists.Sprint.tasks" class="list-group">
+        <li ng-repeat="item in lists.Sprint.tasks" as-sortable-item class="list-group-item as-sortable-item">
             <div as-sortable-item-handle class="as-sortable-item-handle">
-                {{item.titulo}}
-                <span class="badge">{{item.tiempo}}</span>
+                {{item.name}}
+                <span class="badge">{{item.scrumTime}}</span>
+                {{item.desc}}
             </div>
         </li>
     </ul>
 </div>
 <div class="lista col-md-3 col-md-offset-1">
     <h3>Doing</h3>
-    <ul id="listaDoing" as-sortable="dragHandler" data-ng-model="listaDoing" class="list-group">
-        <li ng-repeat="item in listaDoing" as-sortable-item class="list-group-item as-sortable-item">
+    <ul id="listaDoing" as-sortable="dragHandler" data-ng-model="lists.Doing.tasks" class="list-group">
+        <li ng-repeat="item in lists.Doing.tasks" as-sortable-item class="list-group-item as-sortable-item">
             <div as-sortable-item-handle class="as-sortable-item-handle">
-                {{item.titulo}}
-                <span class="badge">{{item.tiempo}}</span>
+                {{item.name}}
+                <span class="badge">{{item.scrumTime}}</span>
+                {{item.desc}}
             </div>
         </li>
     </ul>
 </div>
 <div class="lista col-md-3 col-md-offset-1">
     <h3>Done</h3>
-    <ul id="listaDone" as-sortable="dragHandler" data-ng-model="listaDone" class="list-group">
-        <li ng-repeat="item in listaDone" as-sortable-item class="list-group-item as-sortable-item">
+    <ul id="listaDone" as-sortable="dragHandler" data-ng-model="lists.Done.tasks" class="list-group">
+        <li ng-repeat="item in lists.Done.tasks" as-sortable-item class="list-group-item as-sortable-item">
             <div as-sortable-item-handle class="as-sortable-item-handle">
-                {{item.titulo}}
-                <span class="badge">{{item.tiempo}}</span>
+                {{item.name}}
+                <span class="badge">{{item.scrumTime}}</span>
+                {{item.desc}}
             </div>
         </li>
     </ul>

@@ -4,7 +4,8 @@ angular.module("BoardsModule")
             createBoard: function(name, idOrg, success, err){
                 var board = {
                     name: name,
-                    idOrganization: idOrg
+                    idOrganization: idOrg,
+                    defaultLists: false
                 };
                 Trello.post("/boards", board, success, err);
             },

@@ -41,20 +41,65 @@ angular.module('BoardsModule')
             }
         });
 
+        var listsNames = [
+            "Done", "Doing", "Sprint", "Configs", "PBI", "PBIx", "General Tasks"
+        ];
+
         $rootScope.createBoard = function(name){
-            console.log("entro");
             BoardsServices.createBoard(name, $cookies.get("idNuestraOrg"), function(success){
                 console.log(success);
+                listsNames.forEach(function(listName){
+                    ListasServices.createList(listName, success.id, function(success){}, function(err){
+                        console.log(err);
+                    });
+                });
                 $rootScope.getAllBoards();
             }, function(err){
                 console.log(err);
             });
         };
 
+        $scope.projects = [];
         $rootScope.getAllBoards = function(){
             BoardsServices.getAllBoards($cookies.get("idNuestraOrg"), function(success){
-                console.log(success);
-                $scope.boards = success;
+                $scope.projects = success;
+                $rootScope.$digest();
+            }, function(err){
+                console.log(err);
+            });
+        };
+        $rootScope.getAllBoards();
+
+        $scope.lists = {};
+
+        function listLogic(lists){
+            lists.forEach(function(list){
+                listsNames.forEach(function(listName){
+                    if(listName === list.name)
+                        $scope.lists[listName] = list;
+                });
+            });
+            updateCards();
+        }
+
+        function updateCards(){
+            $.each($scope.lists, function(name, list){
+                CardsServices.getListCards(list.id, function(success){
+                    console.log(list.name, success);
+                    $scope.lists[name].tasks = success;
+                    $rootScope.$digest();
+                }, function(err){
+                    console.log(err);
+                });
+            });
+        }
+
+        $scope.openProject = function(projectId){
+            $scope.parteApp = views.sprint;
+            console.log(projectId);
+            $rootScope.currentProject = projectId;
+            ListasServices.getLists(projectId, function(success){
+                listLogic(success);
             }, function(err){
                 console.log(err);
             });
